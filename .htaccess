@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# Force HTTPS and the www host for a single canonical URL.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\.nabhovid\.com$ [NC]
+RewriteRule ^ https://www.nabhovid.com%{REQUEST_URI} [L,R=301]
+
+# Allow /contact.html etc. as normal URLs, while also supporting clean /contact URLs.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^./]+)$ $1.html [L]
+
+# Hide .html in public URLs for root-level pages.
+RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html(?:[?\s]) [NC]
+RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+
+# Do not expose sensitive PHP/database source files through accidental browsing.
+<FilesMatch "^(config\.php|.*\.sql)$">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Nabhovid | Nabhovid</title><meta name="description" content="Contact Nabhovid for Salesforce consulting, development, implementation, integration, managed services and dedicated Salesforce resources.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<div class="topbar"><div class="container"><span>Salesforce expertise from India • Serving clients worldwide</span><span>Flexible delivery • Consulting • Development • Support</span></div></div>
+<header><div class="container nav">
+<a class="logo" href="index.html"><img class="logo" src="assets/logo.svg" alt="Nabhovid"></a>
+<nav class="navlinks">
+<a href="salesforce.html">Salesforce</a><a href="solutions.html">Solutions</a><a href="hire-salesforce-experts.html">Hire Experts</a><a href="industries.html">Industries</a><a href="case-studies.html">Case Studies</a><a href="about.html">About</a><a class="navcta btn btn-primary" href="contact.html">Talk to Us</a>
+</nav><button class="menu" type="button" aria-label="Open menu">☰</button></div></header>
+<main>
+<section class="page-hero"><div class="container"><div class="breadcrumb">Nabhovid / Contact</div><div class="kicker" style="color:#7ddcff">Contact</div><h1>Let's talk about your Salesforce goals.</h1><p>Tell us what you are building, fixing or scaling. Share your requirement and our team can start from there.</p><div class="actions"><a class="btn btn-primary" href="#contact-form">Talk to a Salesforce Expert</a><a class="btn btn-outline" href="hire-salesforce-experts.html">Explore Engagement Options</a></div></div></section>
+<section class="section"><div class="container"><div class="split"><div><div class="kicker">Start a conversation</div><h2>Tell us what you need.</h2><p>Use the form for Salesforce consulting, development, implementation, integration, support or dedicated resources.</p><div class="feature-list"><div class="feature"><b>Salesforce projects</b><br><span style="color:var(--muted)">New implementation, enhancement, migration or integration.</span></div><div class="feature"><b>Support & managed services</b><br><span style="color:var(--muted)">Ongoing administration, troubleshooting and optimization.</span></div><div class="feature"><b>Dedicated resources</b><br><span style="color:var(--muted)">Developers, consultants, QA, architects and technical leads.</span></div></div></div>
+<div class="card" id="contact-form"><form class="form" id="nabhovidContactForm" action="api/contact-submit.php" method="post" novalidate>
+<label for="name">Name</label><input id="name" name="name" required maxlength="100" autocomplete="name" placeholder="Your name">
+<label for="email">Email</label><input id="email" name="email" required type="email" maxlength="190" autocomplete="email" placeholder="Your email address">
+<label for="phone">Phone</label><input id="phone" name="phone" required type="tel" maxlength="40" autocomplete="tel" placeholder="Your phone number">
+<label for="comments">Comments</label><textarea id="comments" name="comments" required maxlength="5000" rows="7" placeholder="Tell us about your requirement"></textarea>
+<button class="btn btn-primary" id="contactSubmit" type="submit">Submit Enquiry</button>
+<div id="contactStatus" role="status" aria-live="polite" style="margin-top:12px"></div>
+</form></div></div></div></section></main>
+<footer><div class="container footer-grid"><div class="footer-brand"><img class="logo" src="assets/logo.svg" alt="Nabhovid"><p>Salesforce consulting, development, integration, managed services and dedicated talent delivered from India for businesses worldwide.</p><a href="contact.html" class="btn btn-primary" style="display:inline-flex;margin-top:8px">Start a Conversation</a></div>
+<div><h4>Salesforce</h4><a href="salesforce-consulting.html">Consulting</a><a href="salesforce-development.html">Development</a><a href="salesforce-implementation.html">Implementation</a><a href="salesforce-integration.html">Integration</a><a href="salesforce-managed-services.html">Managed Services</a><a href="hire-salesforce-experts.html">Hire Experts</a></div>
+<div><h4>Clouds</h4><a href="sales-cloud.html">Sales Cloud</a><a href="service-cloud.html">Service Cloud</a><a href="experience-cloud.html">Experience Cloud</a><a href="marketing-cloud.html">Marketing Cloud</a><a href="revenue-cloud.html">Revenue Cloud</a><a href="data-cloud.html">Data Cloud</a><a href="agentforce.html">Agentforce</a></div>
+<div><h4>Company</h4><a href="about.html">About Us</a><a href="industries.html">Industries</a><a href="case-studies.html">Case Studies</a><a href="resources.html">Resources</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></div></div><div class="container copyright">© 2026 Nabhovid Software Solutions Pvt. Ltd. All rights reserved. | India-based global delivery</div></footer>
+<script src="assets/main.js"></script>
+<script>
+(function(){
+ const form=document.getElementById('nabhovidContactForm');
+ const status=document.getElementById('contactStatus');
+ const submit=document.getElementById('contactSubmit');
+ if(!form) return;
+ form.addEventListener('submit', async function(e){
+   e.preventDefault();
+   if(!form.checkValidity()){ form.reportValidity(); return; }
+   submit.disabled=true; submit.textContent='Submitting...'; status.textContent='';
+   try{
+     const response=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+     const data=await response.json();
+     if(!response.ok || !data.success) throw new Error(data.message || 'Unable to submit.');
+     status.textContent=data.message;
+     status.style.color='#16794c';
+     form.reset();
+   }catch(err){
+     status.textContent=err.message || 'Unable to submit your enquiry. Please try again.';
+     status.style.color='#b42318';
+   }finally{
+     submit.disabled=false; submit.textContent='Submit Enquiry';
+   }
+ });
+})();
+</script></body></html>
